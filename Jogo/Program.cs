@@ -16,7 +16,7 @@ namespace Jogo
         //Desenha a pista
         static void cenario()
         {
-
+        
             //fundo
             Gl.glPolygonMode(Gl.GL_BACK, Gl.GL_FILL);
             Gl.glBegin(Gl.GL_QUADS);
