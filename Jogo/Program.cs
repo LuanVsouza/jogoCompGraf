@@ -18,37 +18,62 @@ namespace Jogo
         static float txTiro = -37.0f;
         static float tyTiro = 0.0f;
 
-        const float PI = 38.5f;
+        const float PI = 3.14159265358f;
 
         //Desenha a cenario
         static void cenario()
         {
+            float raio, x, y, pontos;
+            raio = 1.0f;
+            pontos = (2 * PI) / 10000;
+
             //fundo
             Gl.glPolygonMode(Gl.GL_BACK, Gl.GL_FILL);
             Gl.glBegin(Gl.GL_QUADS);
 
             //Azul Claro
-            Gl.glColor3f(0.117647f, 0.564706f, 1);
+            Gl.glColor3f(0.117647f, 0.564706f, 1f);
             Gl.glVertex2f(0.0f, 0.0f);
-
             //Azul Escuro
             Gl.glColor3f(0.0980392f, 0.0980392f, 0.439216f);
             Gl.glVertex2f(0.0f, 50.0f);
-
             //Azul Escuro
             Gl.glColor3f(0.0980392f, 0.0980392f, 0.439216f);
             Gl.glVertex2f(50.0f, 50.0f);
-
             //Azul Claro
-            Gl.glColor3f(0.117647f, 0.564706f, 1);
+            Gl.glColor3f(0.117647f, 0.564706f, 1f);
             Gl.glVertex2f(50.0f, 0.0f);
             Gl.glEnd();
             //Fim fundo
 
+            Gl.glColor3f(0.8f, 0.8f, 0.8f);
+            Gl.glLineWidth(5);
+            Gl.glBegin(Gl.GL_TRIANGLE_FAN);
+            for (float angulo = 0.0f; angulo <= PI; angulo += pontos)
+            {
+                x = (float)(raio + 1.5f * Math.Cos(angulo) + 18.0f);
+                y = (float)(raio * Math.Sin(angulo) + 9.5f);
+                Gl.glVertex2f(x, y);
+            }
+
+            for (float angulo = 0.0f; angulo <= PI; angulo += pontos)
+            {
+                x = (float)(raio + 1.5f * Math.Cos(angulo) + 21.0f);
+                y = (float)(raio * Math.Sin(angulo) + 9.5f);
+                Gl.glVertex2f(x, y);
+            }
+
+            for (float angulo = 0.0f; angulo <= PI; angulo += pontos)
+            {
+                x = (float)(raio + 1.5f * Math.Cos(angulo) + 20.5f);
+                y = (float)(raio * Math.Sin(angulo) + 9.5f);
+                Gl.glVertex2f(x, y);
+            }
+            Gl.glEnd();
+
             //Terra
             Gl.glPolygonMode(Gl.GL_BACK, Gl.GL_FILL);
             Gl.glBegin(Gl.GL_QUADS);
-            
             //Escuro
             Gl.glColor3f(0.823529f, 0.411765f, 0.117647f);
             Gl.glVertex2f(0.0f, 0.0f);
@@ -97,38 +122,27 @@ namespace Jogo
         //Desenho Tiro
         static void Bomba()
         {
+            float raio, x, y, pontos;
+            raio = 1.5f;
+            pontos = (2 * PI) / 10000;
+
             Gl.glPushMatrix();
             Gl.glTranslatef(txTiro, tyTiro, 0);
             Gl.glPolygonMode(Gl.GL_BACK, Gl.GL_FILL);
-            //Gl.glBegin(Gl.GL_QUADS);
-
-            //Gl.glEnd();
-            //Gl.glBegin(Gl.GL_QUADS);
-
-            //Gl.glColor3f(0.333333f, 0.333333f, 0.333333f);
-            //Gl.glVertex2f(37.0f, 11.5f);
-
-            //Gl.glColor3f(0.0f, 0.0f, 0.0f);
-            //Gl.glVertex2f(37.0f, 13.0f);
-
-            //Gl.glColor3f(0.0f, 0.0f, 0.0f);
-            //Gl.glVertex2f(40.0f, 13.0f);
-
-            //Gl.glColor3f(0.333333f, 0.333333f, 0.333333f);
-            //Gl.glVertex2f(40.0f, 11.5f);
-
-            float raio, x, y, pontos;
-            raio = 1.0f;
-            pontos = (2 * PI) / 100;
+            Gl.glBegin(Gl.GL_QUADS);
 
             Gl.glColor3f(0.0f, 0.0f, 0.0f);
+            Gl.glVertex2f(37.0f, 11.5f);
+            Gl.glVertex2f(37.0f, 13.0f);
+            Gl.glVertex2f(40.0f, 13.0f);
+            Gl.glVertex2f(40.0f, 11.5f);
+
             Gl.glLineWidth(5);
             Gl.glBegin(Gl.GL_TRIANGLE_FAN);
-            Gl.glVertex2f(37.0f, 13.0f);
-            for (float angulo = 0.0f; angulo <= PI; angulo += pontos)
+            for (float angulo = PI; angulo <= 2 * PI; angulo += pontos)
             {
-                x = (float)(raio * Math.Cos(angulo) + 37.0f);
-                y = (float)(raio * Math.Sin(angulo) + 13.0f);
+                x = (float)(raio * Math.Cos(angulo) + 38.5f);
+                y = (float)(raio * Math.Sin(angulo) + 11.5f);
                 Gl.glVertex2f(x, y);
             }
 
@@ -172,7 +186,7 @@ namespace Jogo
         static void Atirar()
         {
 
-            tyTiro -= 0.03f;
+            tyTiro -= 0.1f;
 
         }
 
