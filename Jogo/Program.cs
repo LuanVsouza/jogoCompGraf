@@ -46,30 +46,84 @@ namespace Jogo
             Gl.glEnd();
             //Fim fundo
 
+            //nuvem 1
             Gl.glColor3f(0.8f, 0.8f, 0.8f);
             Gl.glLineWidth(5);
             Gl.glBegin(Gl.GL_TRIANGLE_FAN);
             for (float angulo = 0.0f; angulo <= PI; angulo += pontos)
             {
-                x = (float)(raio + 1.5f * Math.Cos(angulo) + 18.0f);
-                y = (float)(raio * Math.Sin(angulo) + 9.5f);
+                x = (float)(raio + 1.5f * Math.Cos(angulo) + 7.0f);
+                y = (float)(raio * Math.Sin(angulo) + 9.0f);
                 Gl.glVertex2f(x, y);
             }
 
             for (float angulo = 0.0f; angulo <= PI; angulo += pontos)
             {
-                x = (float)(raio + 1.5f * Math.Cos(angulo) + 21.0f);
-                y = (float)(raio * Math.Sin(angulo) + 9.5f);
+                x = (float)(raio + 1.5f * Math.Cos(angulo) + 9.0f);
+                y = (float)(raio * Math.Sin(angulo) + 9.0f);
                 Gl.glVertex2f(x, y);
             }
 
             for (float angulo = 0.0f; angulo <= PI; angulo += pontos)
             {
-                x = (float)(raio + 1.5f * Math.Cos(angulo) + 20.5f);
-                y = (float)(raio * Math.Sin(angulo) + 9.5f);
+                x = (float)(raio + 1.5f * Math.Cos(angulo) + 11.0f);
+                y = (float)(raio * Math.Sin(angulo) + 9.0f);
                 Gl.glVertex2f(x, y);
             }
             Gl.glEnd();
+
+            //nuvem 2
+            Gl.glColor3f(0.8f, 0.8f, 0.8f);
+            Gl.glLineWidth(5);
+            Gl.glBegin(Gl.GL_TRIANGLE_FAN);
+            for (float angulo = 0.0f; angulo <= PI; angulo += pontos)
+            {
+                x = (float)(raio + 1.5f * Math.Cos(angulo) + 20.0f);
+                y = (float)(raio * Math.Sin(angulo) + 5.0f);
+                Gl.glVertex2f(x, y);
+            }
+
+            for (float angulo = 0.0f; angulo <= PI; angulo += pontos)
+            {
+                x = (float)(raio + 1.5f * Math.Cos(angulo) + 22.0f);
+                y = (float)(raio * Math.Sin(angulo) + 5.0f);
+                Gl.glVertex2f(x, y);
+            }
+
+            for (float angulo = 0.0f; angulo <= PI; angulo += pontos)
+            {
+                x = (float)(raio + 1.5f * Math.Cos(angulo) + 24.0f);
+                y = (float)(raio * Math.Sin(angulo) + 5.0f);
+                Gl.glVertex2f(x, y);
+            }
+            Gl.glEnd();
+
+            //nuvem 3
+            Gl.glColor3f(0.8f, 0.8f, 0.8f);
+            Gl.glLineWidth(5);
+            Gl.glBegin(Gl.GL_TRIANGLE_FAN);
+            for (float angulo = 0.0f; angulo <= PI; angulo += pontos)
+            {
+                x = (float)(raio + 1.5f * Math.Cos(angulo) + 30.0f);
+                y = (float)(raio * Math.Sin(angulo) + 10.0f);
+                Gl.glVertex2f(x, y);
+            }
+
+            for (float angulo = 0.0f; angulo <= PI; angulo += pontos)
+            {
+                x = (float)(raio + 1.5f * Math.Cos(angulo) + 32.0f);
+                y = (float)(raio * Math.Sin(angulo) + 10.0f);
+                Gl.glVertex2f(x, y);
+            }
+
+            for (float angulo = 0.0f; angulo <= PI; angulo += pontos)
+            {
+                x = (float)(raio + 1.5f * Math.Cos(angulo) + 34.0f);
+                y = (float)(raio * Math.Sin(angulo) + 10.0f);
+                Gl.glVertex2f(x, y);
+            }
+            Gl.glEnd();
+
 
             //Terra
             Gl.glPolygonMode(Gl.GL_BACK, Gl.GL_FILL);
@@ -185,12 +239,10 @@ namespace Jogo
 
         static void Atirar()
         {
-
             tyTiro -= 0.1f;
-
         }
 
-        static void DesenhaJogador()
+        static void DesenhaJogo()
         {
             Gl.glClear(Gl.GL_COLOR_BUFFER_BIT);
 
@@ -231,7 +283,7 @@ namespace Jogo
             Glut.glutInitWindowPosition(100, 100);
             Glut.glutCreateWindow("Sobrevivendo");
             Inicializa();
-            Glut.glutDisplayFunc(DesenhaJogador);
+            Glut.glutDisplayFunc(DesenhaJogo);
             Glut.glutSpecialFunc(Mover);
             Glut.glutMainLoop();
         }
