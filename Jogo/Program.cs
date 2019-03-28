@@ -18,19 +18,21 @@ namespace Jogo
         static float txTiro = -37.0f;
         static float tyTiro = 0.0f;
 
+        static float velocidae = 0.1f;
+        static float rot = 0.0f;
+
         const float PI = 3.14159265358f;
 
         //Desenha a cenario
         static void cenario()
         {
             float raio, x, y, pontos;
-            raio = 1.0f;
+            raio = 1.5f;
             pontos = (2 * PI) / 10000;
 
             //fundo
             Gl.glPolygonMode(Gl.GL_BACK, Gl.GL_FILL);
             Gl.glBegin(Gl.GL_QUADS);
-
             //Azul Claro
             Gl.glColor3f(0.117647f, 0.564706f, 1f);
             Gl.glVertex2f(0.0f, 0.0f);
@@ -46,7 +48,7 @@ namespace Jogo
             Gl.glEnd();
             //Fim fundo
 
-            //nuvem 1
+            //Nuvem 1
             Gl.glColor3f(0.8f, 0.8f, 0.8f);
             Gl.glLineWidth(5);
             Gl.glBegin(Gl.GL_TRIANGLE_FAN);
@@ -72,7 +74,7 @@ namespace Jogo
             }
             Gl.glEnd();
 
-            //nuvem 2
+            //Nuvem 2
             Gl.glColor3f(0.8f, 0.8f, 0.8f);
             Gl.glLineWidth(5);
             Gl.glBegin(Gl.GL_TRIANGLE_FAN);
@@ -98,7 +100,7 @@ namespace Jogo
             }
             Gl.glEnd();
 
-            //nuvem 3
+            //Nuvem 3
             Gl.glColor3f(0.8f, 0.8f, 0.8f);
             Gl.glLineWidth(5);
             Gl.glBegin(Gl.GL_TRIANGLE_FAN);
@@ -128,16 +130,16 @@ namespace Jogo
             //Terra
             Gl.glPolygonMode(Gl.GL_BACK, Gl.GL_FILL);
             Gl.glBegin(Gl.GL_QUADS);
-            //Escuro
+            //Marrom Escuro
             Gl.glColor3f(0.823529f, 0.411765f, 0.117647f);
             Gl.glVertex2f(0.0f, 0.0f);
-            //clara
+            //Marro claro
             Gl.glColor3f(0.803922f, 0.521569f, 0.247059f);
             Gl.glVertex2f(0.0f, 2.5f);
-            //clara
+            //Marrom claro
             Gl.glColor3f(0.803922f, 0.521569f, 0.247059f);
             Gl.glVertex2f(50.0f, 2.5f);
-            //Escuro
+            //Marrom Escuro
             Gl.glColor3f(0.823529f, 0.411765f, 0.117647f);
             Gl.glVertex2f(50.0f, 0.0f);
             Gl.glEnd();
@@ -152,6 +154,59 @@ namespace Jogo
             Gl.glVertex2f(50.0f, 2.0f);
             Gl.glEnd();
             //Fim gramado
+        }
+
+        static void Sol()
+        {
+            float raio, x, y, pontos;
+            raio = 1.5f;
+            pontos = (2 * PI) / 10000;
+
+            Gl.glPushMatrix();
+
+            Gl.glTranslatef(20.0f, 9.5f, 0f);
+            Gl.glRotatef(rot, 0, 0, 1);
+            Gl.glTranslatef(-20.0f, -9.5f, 0.0f);
+
+            Gl.glColor3f(1.0f, 0.843137f, 0.0f);
+            Gl.glLineWidth(5);
+            Gl.glBegin(Gl.GL_TRIANGLE_FAN);
+            for (float angulo = 0.0f; angulo <= 2 * PI; angulo += pontos)
+            {
+                x = (float)(raio * Math.Cos(angulo) + 20.0f);
+                y = (float)(raio * Math.Sin(angulo) + 9.5f);
+                Gl.glVertex2f(x, y);
+            }
+
+            Gl.glEnd();
+
+            Gl.glColor3f(1.0f, 0.843137f, 0.0f);
+            Gl.glBegin(Gl.GL_TRIANGLES);
+            Gl.glVertex2f(19.0f, 11.3f);
+            Gl.glVertex2f(20.0f, 12.3f);
+            Gl.glVertex2f(21.0f, 11.3f);
+            Gl.glEnd();
+
+            Gl.glBegin(Gl.GL_TRIANGLES);
+            Gl.glVertex2f(22.0f, 10.3f);
+            Gl.glVertex2f(23.0f, 9.5f);
+            Gl.glVertex2f(22.0f, 8.7f);
+            Gl.glEnd();
+
+            Gl.glBegin(Gl.GL_TRIANGLES);
+            Gl.glVertex2f(19.0f, 7.7f);
+            Gl.glVertex2f(20.0f, 6.7f);
+            Gl.glVertex2f(21.0f, 7.7f);
+            Gl.glEnd();
+
+            Gl.glBegin(Gl.GL_TRIANGLES);
+            Gl.glVertex2f(18.0f, 10.3f);
+            Gl.glVertex2f(17.0f, 9.5f);
+            Gl.glVertex2f(18.0f, 8.7f);
+            Gl.glEnd();
+
+            Gl.glPopMatrix();
+            
         }
 
         //Desenho Jogador
@@ -195,7 +250,7 @@ namespace Jogo
             Gl.glBegin(Gl.GL_TRIANGLE_FAN);
             for (float angulo = PI; angulo <= 2 * PI; angulo += pontos)
             {
-                x = (float)(raio * Math.Cos(angulo) + 38.5f);
+                x = (float)(raio  * Math.Cos(angulo) + 38.5f);
                 y = (float)(raio * Math.Sin(angulo) + 11.5f);
                 Gl.glVertex2f(x, y);
             }
@@ -215,11 +270,13 @@ namespace Jogo
 
         static void ColisaoTiro()
         {
-            if ( ((tyTiro * -1) >= 7.5f) && ( (txTiro == txJog) || (txTiro == txJog + 1) || (txTiro == txJog - 1) || (txTiro == txJog + 2) || (txTiro == txJog - 2) ) )
+            if ( ((tyTiro * -1) >= 6.0f) && ( (txTiro == txJog) || (txTiro == txJog + 1) || (txTiro == txJog - 1) || (txTiro == txJog + 2) || (txTiro == txJog - 2) ) )
             {
-                tyTiro = -7.5f;
+                tyTiro = -6.0f;
                 txJog = txTiro;
                 Gl.glClear(Gl.GL_COLOR_BUFFER_BIT);
+
+               // Console.WriteLine("Game Over!");
 
             }
             else
@@ -228,7 +285,7 @@ namespace Jogo
 
                     Random randNum = new Random();
                     txTiro = randNum.Next(-37, 6);
-
+                    velocidae += 0.05f;
                     tyTiro = 0.0f;
 
                 }
@@ -239,7 +296,7 @@ namespace Jogo
 
         static void Atirar()
         {
-            tyTiro -= 0.1f;
+            tyTiro -= velocidae;
         }
 
         static void DesenhaJogo()
@@ -247,6 +304,7 @@ namespace Jogo
             Gl.glClear(Gl.GL_COLOR_BUFFER_BIT);
 
             cenario();
+            Sol();
 
             Bomba();
             Atirar();
@@ -263,6 +321,15 @@ namespace Jogo
         {
             if (key == Glut.GLUT_KEY_LEFT) { txJog -= 1.0f; }
             if (key == Glut.GLUT_KEY_RIGHT) { txJog += 1.0f; }
+        }
+
+        //Tempo
+        static void Timer(int value)
+        {
+            rot -= 7;
+
+            Glut.glutPostRedisplay();
+            Glut.glutTimerFunc(1, Timer, 1);
         }
 
         static void Inicializa()
@@ -285,6 +352,7 @@ namespace Jogo
             Inicializa();
             Glut.glutDisplayFunc(DesenhaJogo);
             Glut.glutSpecialFunc(Mover);
+            Glut.glutTimerFunc(100, Timer, 1);
             Glut.glutMainLoop();
         }
     }
