@@ -275,9 +275,6 @@ namespace Jogo
                 tyTiro = -6.0f;
                 txJog = txTiro;
                 Gl.glClear(Gl.GL_COLOR_BUFFER_BIT);
-
-               // Console.WriteLine("Game Over!");
-
             }
             else
             {
@@ -321,6 +318,14 @@ namespace Jogo
         {
             if (key == Glut.GLUT_KEY_LEFT) { txJog -= 1.0f; }
             if (key == Glut.GLUT_KEY_RIGHT) { txJog += 1.0f; }
+
+            if (key == Glut.GLUT_KEY_F1)
+            {
+                Random randNum = new Random();
+                txTiro = randNum.Next(-37, 6);
+                velocidae = 0.1f;
+                tyTiro = 0.0f;
+            }
         }
 
         //Tempo
